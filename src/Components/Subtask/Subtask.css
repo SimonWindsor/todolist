@@ -1,0 +1,11 @@
+input.subtask {
+  display: none;
+}
+
+input.subtask + label {
+  cursor: pointer;
+}
+
+input.subtask:checked + label {
+  text-decoration: line-through;
+}

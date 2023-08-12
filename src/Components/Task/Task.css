@@ -1,0 +1,15 @@
+input.task {
+  display: none;
+}
+
+input.task + label {
+  cursor: pointer;
+}
+
+input.task:checked + label {
+  text-decoration: line-through;
+}
+
+button {
+  cursor: pointer;
+}

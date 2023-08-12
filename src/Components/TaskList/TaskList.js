@@ -8,7 +8,14 @@ class TaskList extends React.Component {
       <div className="task-list">
         {
           this.props.taskList.map(task => {
-            return <Task name={task.taskName} subtasks={task.subtasks} />
+            return (
+              <Task 
+                name={task.taskName}
+                expanded={task.expanded}
+                subtasks={task.subtasks}
+                onSelection={this.props.onSelection}
+              />
+            )
           })
         }
       </div>

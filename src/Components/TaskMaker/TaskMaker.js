@@ -1,7 +1,6 @@
 import React from "react";
 
-import Task from '../Task/Task';
-import Subtask from '../Subtask/Subtask';
+import './TaskMaker.css'
 
 class TaskMaker extends React.Component {
   constructor(props) {
@@ -16,7 +15,8 @@ class TaskMaker extends React.Component {
   
   render() {
     return(
-      <div className="task-maker">
+      <div id="task-maker" hidden>
+        <h3>Create Task</h3>
         <input type="text" />
       </div>
     )
