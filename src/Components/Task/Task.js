@@ -36,7 +36,15 @@ class Task extends React.Component {
     if(this.props.expanded) {
       subTaskList = this.props.subtasks.map(subtask => {
         if(this.props.expanded)
-          return <Subtask subtask={subtask} />
+          return (
+            <Subtask
+              name={subtask.name}
+              marked={subtask.marked}
+              mainName={this.props.name}
+              mainMarked={this.props.marked}
+              onMark={this.props.onMarkSub}   
+            />
+          )
       });
     }
 

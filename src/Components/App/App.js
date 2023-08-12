@@ -61,13 +61,14 @@ class App extends React.Component {
 
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
     this.markUnmark = this.markUnmark.bind(this);
+    this.markUnmarkSub = this.markUnmarkSub.bind(this);
     this.viewTaskMaker = this.viewTaskMaker.bind(this);
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
   }
 
   expandOrCollapseTask(task) {
-    let allTasks = this.state.taskList
+    let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
       if(allTasks[i].taskName === task)
         allTasks[i].expanded = !allTasks[i].expanded;
@@ -76,10 +77,23 @@ class App extends React.Component {
   }
 
   markUnmark(task) {
-    let allTasks = this.state.taskList
+    let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
       if(allTasks[i].taskName === task)
         allTasks[i].marked = !allTasks[i].marked;
+    }
+    this.setState({taskList: allTasks});
+  }
+
+  markUnmarkSub(task, subtask) {
+    let allTasks = this.state.taskList;
+    for(let i = 0; i < allTasks.length; i++) {
+      if(allTasks[i].taskName === task) {
+        for(let j = 0; j < allTasks[i].subtasks.length; j++) {
+          if(allTasks[i].subtasks[j].name === subtask)
+            allTasks[i].subtasks[j].marked = !allTasks[i].subtasks[j].marked;
+        }
+      }
     }
     this.setState({taskList: allTasks});
   }
@@ -107,6 +121,7 @@ class App extends React.Component {
           taskList={this.state.taskList}
           onExpandOrCollapse={this.expandOrCollapseTask}
           onMark={this.markUnmark}
+          onMarkSub={this.markUnmarkSub}
         />
         <TaskMaker close={this.closeTaskMaker} addTask={this.addTask} />
       </div>
