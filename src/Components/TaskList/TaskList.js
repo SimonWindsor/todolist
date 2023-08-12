@@ -17,6 +17,8 @@ class TaskList extends React.Component {
                 onExpandOrCollapse={this.props.onExpandOrCollapse}
                 onMark={this.props.onMark}
                 onMarkSub={this.props.onMarkSub}
+                allSubsMarked={this.props.allSubsMarked}
+                onDelete={this.props.onDelete}
               />
             )
           })

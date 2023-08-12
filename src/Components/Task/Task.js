@@ -11,14 +11,20 @@ class Task extends React.Component {
     this.isChecked = this.isChecked.bind(this);
     this.getButtonLabel = this.getButtonLabel.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   toggleMark() {
-    this.props.onMark(this.props.name)
+    this.props.onMark(this.props.name);
   }
 
   isChecked() {
-    return this.props.marked ? true : false;
+    if(this.props.allSubsMarked(this.props.name))
+      return true;
+    else if(this.props.marked)
+      return true;
+    else
+      return false;
   }
 
   getButtonLabel() {
@@ -26,7 +32,11 @@ class Task extends React.Component {
   }
 
   expandOrCollapseTask() {
-    this.props.onExpandOrCollapse(this.props.name)
+    this.props.onExpandOrCollapse(this.props.name);
+  }
+
+  deleteTask() {
+    this.props.onDelete(this.props.name);
   }
 
   render() {
@@ -60,6 +70,7 @@ class Task extends React.Component {
         <label for={this.props.name}><h2>{this.props.name}</h2></label>
         {/* Button appears here with correct label */}
         <button onClick={this.expandOrCollapseTask}>{this.getButtonLabel()}</button>
+        <button onClick={this.deleteTask}>x</button>
         {/* subtasks appear if expand button is clicked */}
         {subTaskList}
       </div>

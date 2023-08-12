@@ -62,9 +62,11 @@ class App extends React.Component {
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
     this.markUnmark = this.markUnmark.bind(this);
     this.markUnmarkSub = this.markUnmarkSub.bind(this);
+    this.allSubsMarked = this.allSubsMarked.bind(this);
     this.viewTaskMaker = this.viewTaskMaker.bind(this);
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   expandOrCollapseTask(task) {
@@ -98,6 +100,22 @@ class App extends React.Component {
     this.setState({taskList: allTasks});
   }
 
+  allSubsMarked(task) {
+    const allTasks = this.state.taskList;
+    for(let i = 0; i < allTasks.length; i++) {
+      if(allTasks[i].taskName === task) {
+        if(allTasks[i].subtasks.length === 0)
+          return false;
+
+        for(let j = 0; j < allTasks[i].subtasks.length; j++) {
+          if(allTasks[i].subtasks[j].marked === false)
+            return false;
+        }
+      }
+    }
+    return true;
+  }
+
   viewTaskMaker() {
     document.getElementById('task-maker').hidden = false;
   }
@@ -106,9 +124,22 @@ class App extends React.Component {
     document.getElementById('task-maker').hidden = true;
   }
 
-  addTask(name, subtasks) {
+  addTask(name) {
     let allTasks = this.state.taskList;
-    allTasks.push({taskName: name, subtasks: subtasks});
+    allTasks.push({
+      taskName: name,
+      expanded: false,
+      marked: false,
+      subtasks: []
+    });
+    this.setState({taskList: allTasks});
+  }
+
+  deleteTask(deletedTask) {
+    const allTasks = this.state.taskList.filter(task => {
+      return task.taskName != deletedTask
+    });
+
     this.setState({taskList: allTasks});
   }
 
@@ -122,8 +153,10 @@ class App extends React.Component {
           onExpandOrCollapse={this.expandOrCollapseTask}
           onMark={this.markUnmark}
           onMarkSub={this.markUnmarkSub}
+          allSubsMarked={this.allSubsMarked}
+          onDelete={this.deleteTask}
         />
-        <TaskMaker close={this.closeTaskMaker} addTask={this.addTask} />
+        <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
       </div>
     )
   }

@@ -1,7 +1,20 @@
 #task-maker {
-  position: absolute;
+  position: fixed;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 400px;
   height: 300px;
+  border: 1px solid black;
+}
+
+#top-bar {
+  display: flex;
+  justify-content: center;
+}
+
+#close-button {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
