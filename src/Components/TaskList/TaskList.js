@@ -12,8 +12,10 @@ class TaskList extends React.Component {
               <Task 
                 name={task.taskName}
                 expanded={task.expanded}
+                marked={task.marked}
                 subtasks={task.subtasks}
-                onSelection={this.props.onSelection}
+                onExpandOrCollapse={this.props.onExpandOrCollapse}
+                onMark={this.props.onMark}
               />
             )
           })

@@ -7,8 +7,18 @@ class Task extends React.Component {
   constructor(props) {
     super(props);
 
+    this.toggleMark = this.toggleMark.bind(this);
+    this.isChecked = this.isChecked.bind(this);
     this.getButtonLabel = this.getButtonLabel.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
+  }
+
+  toggleMark() {
+    this.props.onMark(this.props.name)
+  }
+
+  isChecked() {
+    return this.props.marked ? true : false;
   }
 
   getButtonLabel() {
@@ -16,7 +26,7 @@ class Task extends React.Component {
   }
 
   expandOrCollapseTask() {
-    this.props.onSelection(this.props.name)
+    this.props.onExpandOrCollapse(this.props.name)
   }
 
   render() {
@@ -32,7 +42,13 @@ class Task extends React.Component {
 
     return(
       <div className="task">
-        <input type="checkbox" className='task' id={this.props.name}/>
+        <input
+          type="checkbox"
+          className='task'
+          id={this.props.name}
+          checked={this.isChecked()}
+          onClick={this.toggleMark}
+        />
         <label for={this.props.name}><h2>{this.props.name}</h2></label>
         {/* Button appears here with correct label */}
         <button onClick={this.expandOrCollapseTask}>{this.getButtonLabel()}</button>

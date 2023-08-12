@@ -10,14 +10,57 @@ class App extends React.Component {
 
     this.state = {
       taskList: [
-        {taskName: 'Feed Cat', expanded: false, subtasks: ['Clean cat bowl', 'Buy cat food', 'Actually give it to the cat']},
-        {taskName: 'Fix tap', expanded: false, subtasks: ['Get washers', 'Replace washers']},
-        {taskName: 'Eat', expanded: false, subtasks: []},
-        {taskName: 'Play Guitar', expanded: false, subtasks: []}
+        {
+          taskName: 'Feed Cat', 
+          expanded: false,
+          marked: false, 
+          subtasks: [
+            {
+              name: 'Clean cat bowl', 
+              marked: false
+            },
+            {
+              name: 'Buy cat food', 
+              marked: false
+            },
+            {
+              name: 'Actually give it to the cat',
+              marked: false
+            }
+          ]
+        },
+        {
+          taskName: 'Fix tap', 
+          expanded: false, 
+          marked: false,
+          subtasks: [
+            {
+              name: 'Get washers', 
+              marked: false
+            },
+            {
+              name: 'Replace washers', 
+              marked: false
+            }
+          ]
+        },
+        {
+          taskName: 'Eat', 
+          expanded: false, 
+          marked: false,
+          subtasks: []
+        },
+        {
+          taskName: 'Play Guitar', 
+          expanded: false, 
+          marked: false,
+          subtasks: []
+        }
       ]
     }
 
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
+    this.markUnmark = this.markUnmark.bind(this);
     this.viewTaskMaker = this.viewTaskMaker.bind(this);
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
@@ -28,6 +71,15 @@ class App extends React.Component {
     for(let i = 0; i < allTasks.length; i++) {
       if(allTasks[i].taskName === task)
         allTasks[i].expanded = !allTasks[i].expanded;
+    }
+    this.setState({taskList: allTasks});
+  }
+
+  markUnmark(task) {
+    let allTasks = this.state.taskList
+    for(let i = 0; i < allTasks.length; i++) {
+      if(allTasks[i].taskName === task)
+        allTasks[i].marked = !allTasks[i].marked;
     }
     this.setState({taskList: allTasks});
   }
@@ -51,7 +103,11 @@ class App extends React.Component {
       <div className='task-list-container'>
         <h1>TO DO:</h1>
         <button onClick={this.viewTaskMaker}>+</button>
-        <TaskList taskList={this.state.taskList} onSelection={this.expandOrCollapseTask} />
+        <TaskList
+          taskList={this.state.taskList}
+          onExpandOrCollapse={this.expandOrCollapseTask}
+          onMark={this.markUnmark}
+        />
         <TaskMaker close={this.closeTaskMaker} addTask={this.addTask} />
       </div>
     )
