@@ -11,7 +11,8 @@ class Subtask extends React.Component {
   }
 
   toggleMark() {
-    this.props.onMark(this.props.mainName, this.props.name)
+    if(!this.props.mainMarked)
+      this.props.onMark(this.props.mainName, this.props.name);
   }
 
   isChecked() {

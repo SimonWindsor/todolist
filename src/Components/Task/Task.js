@@ -15,6 +15,11 @@ class Task extends React.Component {
   }
 
   toggleMark() {
+    if(this.props.allSubsMarked(this.props.name)) {
+      this.props.unmarkAllSubs(this.props.name);
+      return;
+    }
+
     this.props.onMark(this.props.name);
   }
 
@@ -45,20 +50,19 @@ class Task extends React.Component {
     //Subtasks will be rendered upon clicking of button
     if(this.props.expanded) {
       subTaskList = this.props.subtasks.map(subtask => {
-        if(this.props.expanded)
-          return (
-            <Subtask
-              name={subtask.name}
-              marked={subtask.marked}
-              mainName={this.props.name}
-              mainMarked={this.props.marked}
-              onMark={this.props.onMarkSub}   
-            />
-          )
+        return (
+          <Subtask
+            name={subtask.name}
+            marked={subtask.marked}
+            mainName={this.props.name}
+            mainMarked={this.props.marked}
+            onMark={this.props.onMarkSub}   
+          />
+        )
       });
     }
 
-    return(
+    return (
       <div className="task">
         <input
           type="checkbox"

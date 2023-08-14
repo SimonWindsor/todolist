@@ -63,6 +63,7 @@ class App extends React.Component {
     this.markUnmark = this.markUnmark.bind(this);
     this.markUnmarkSub = this.markUnmarkSub.bind(this);
     this.allSubsMarked = this.allSubsMarked.bind(this);
+    this.unmarkAllSubs = this.unmarkAllSubs.bind(this);
     this.viewTaskMaker = this.viewTaskMaker.bind(this);
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
@@ -116,6 +117,17 @@ class App extends React.Component {
     return true;
   }
 
+  unmarkAllSubs(task) {
+    const allTasks = this.state.taskList;
+    for(let i = 0; i < allTasks.length; i++) {
+      if(allTasks[i].taskName === task) {
+        for(let j = 0; j < allTasks[i].subtasks.length; j++)
+          allTasks[i].subtasks[j].marked = false;
+      }
+    }
+    this.setState({taskList: allTasks});
+  }
+
   viewTaskMaker() {
     document.getElementById('task-maker').hidden = false;
   }
@@ -137,7 +149,7 @@ class App extends React.Component {
 
   deleteTask(deletedTask) {
     const allTasks = this.state.taskList.filter(task => {
-      return task.taskName != deletedTask
+      return task.taskName !== deletedTask
     });
 
     this.setState({taskList: allTasks});
@@ -145,7 +157,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='task-list-container'>
+      <div id='task-list-container'>
         <h1>TO DO:</h1>
         <button onClick={this.viewTaskMaker}>+</button>
         <TaskList
@@ -154,6 +166,7 @@ class App extends React.Component {
           onMark={this.markUnmark}
           onMarkSub={this.markUnmarkSub}
           allSubsMarked={this.allSubsMarked}
+          unmarkAllSubs={this.unmarkAllSubs}
           onDelete={this.deleteTask}
         />
         <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />

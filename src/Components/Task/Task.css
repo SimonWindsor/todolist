@@ -1,3 +1,7 @@
+h2 {
+  font-size: 2rem;
+}
+
 input.task {
   display: none;
 }

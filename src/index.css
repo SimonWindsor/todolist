@@ -1,3 +1,4 @@
 html {
   background-color: #f3e282;
+  font-size: clamp(12px, 1.05vw, 30px);
 }
