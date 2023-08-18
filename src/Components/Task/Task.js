@@ -69,9 +69,9 @@ class Task extends React.Component {
           className='task'
           id={this.props.name}
           checked={this.isChecked()}
-          onClick={this.toggleMark}
+          onChange={this.toggleMark}
         />
-        <label for={this.props.name}><h2>{this.props.name}</h2></label>
+        <label htmlFor={this.props.name}><h2>{this.props.name}</h2></label>
         {/* Button appears here with correct label */}
         <button onClick={this.expandOrCollapseTask}>{this.getButtonLabel()}</button>
         <button onClick={this.deleteTask}>x</button>

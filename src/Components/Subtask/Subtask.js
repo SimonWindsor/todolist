@@ -34,7 +34,7 @@ class Subtask extends React.Component {
           checked={this.isChecked()}
           onClick={this.toggleMark}
         />
-        <label for={this.props.name}>{this.props.name}</label>
+        <label htmlFor={this.props.name}>{this.props.name}</label>
       </div>
     )
   }

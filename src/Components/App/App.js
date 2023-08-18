@@ -71,19 +71,26 @@ class App extends React.Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
     this.rememberToggleChecked = this.rememberToggleChecked.bind(this);
+    this.rememberTasks = this.rememberTasks.bind(this);
+    this.forgetTasks = this.forgetTasks.bind(this);
   }
-
+  
   recallToDos() {
-    const getStorage = localStorage.getItem(toDoListState);
+    const getStorage = localStorage.getItem('toDoListState');
 
     if(getStorage === null) {
       return {
         taskList: [],
         remember: false
       }
-    } else
-      return getStorage;
-  }
+    } else {
+      return {
+        taskList: JSON.parse(getStorage),
+        remember: true
+      }
+    }
+
+   }
 
   expandOrCollapseTask(task) {
     let allTasks = this.state.taskList;
@@ -170,15 +177,23 @@ class App extends React.Component {
     this.setState({taskList: allTasks});
   }
 
-  toggleRemember(checked) {
-    if(checked)
-      localStorage.setItem(toDoListState) = this.state;
-    else
-      localStorage.clear();
+  toggleRemember() {
+    const checked = !this.state.remember;
+    this.setState({remember: checked});
+    checked ? this.rememberTasks() : this.forgetTasks();
   }
 
   rememberToggleChecked() {
     return this.state.remember;
+  }
+
+  rememberTasks() {
+    console.log(this.state.taskList);
+    localStorage.setItem('toDoListState', JSON.stringify(this.state.taskList));
+  }
+
+  forgetTasks() {
+    localStorage.clear();
   }
 
   render() {
@@ -195,7 +210,7 @@ class App extends React.Component {
           unmarkAllSubs={this.unmarkAllSubs}
           onDelete={this.deleteTask}
         />
-        <RememberToggle onToggle={toggleRemember} isChecked={rememberToggleChecked} />
+        <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
         <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
       </div>
     )

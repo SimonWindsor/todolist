@@ -5,14 +5,18 @@ class RememberToggle extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleChange() {
+    this.props.onToggle();
   }
 
   render() {
     return (
       <div>
-        <input type="checkbox" id="switch" onChange="" />
-        <label for="switch"><div id="slider"></div></label>
+        <input type="checkbox" id="switch" checked={this.props.isChecked()} onChange={this.handleChange} />
+        <label htmlFor="switch"><div id="slider"></div></label>
       </div>
     )
   }
