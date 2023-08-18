@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskList from '../TaskList/TaskList';
+import RememberToggle from '../RememberToggle/RememberToggle';
 import TaskMaker from '../TaskMaker/TaskMaker';
 
 import './App.css';
@@ -8,57 +9,57 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      taskList: [
-        {
-          taskName: 'Feed Cat', 
-          expanded: false,
-          marked: false, 
-          subtasks: [
-            {
-              name: 'Clean cat bowl', 
-              marked: false
-            },
-            {
-              name: 'Buy cat food', 
-              marked: false
-            },
-            {
-              name: 'Actually give it to the cat',
-              marked: false
-            }
-          ]
-        },
-        {
-          taskName: 'Fix tap', 
-          expanded: false, 
-          marked: false,
-          subtasks: [
-            {
-              name: 'Get washers', 
-              marked: false
-            },
-            {
-              name: 'Replace washers', 
-              marked: false
-            }
-          ]
-        },
-        {
-          taskName: 'Eat', 
-          expanded: false, 
-          marked: false,
-          subtasks: []
-        },
-        {
-          taskName: 'Play Guitar', 
-          expanded: false, 
-          marked: false,
-          subtasks: []
-        }
-      ]
-    }
+    this.state = this.recallToDos();
+      // taskList: [
+      //   {
+      //     taskName: 'Feed Cat', 
+      //     expanded: false,
+      //     marked: false, 
+      //     subtasks: [
+      //       {
+      //         name: 'Clean cat bowl', 
+      //         marked: false
+      //       },
+      //       {
+      //         name: 'Buy cat food', 
+      //         marked: false
+      //       },
+      //       {
+      //         name: 'Actually give it to the cat',
+      //         marked: false
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     taskName: 'Fix tap', 
+      //     expanded: false, 
+      //     marked: false,
+      //     subtasks: [
+      //       {
+      //         name: 'Get washers', 
+      //         marked: false
+      //       },
+      //       {
+      //         name: 'Replace washers', 
+      //         marked: false
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     taskName: 'Eat', 
+      //     expanded: false, 
+      //     marked: false,
+      //     subtasks: []
+      //   },
+      //   {
+      //     taskName: 'Play Guitar', 
+      //     expanded: false, 
+      //     marked: false,
+      //     subtasks: []
+      //   }
+      // ]
 
+    this.recallToDos = this.recallToDos.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
     this.markUnmark = this.markUnmark.bind(this);
     this.markUnmarkSub = this.markUnmarkSub.bind(this);
@@ -68,6 +69,20 @@ class App extends React.Component {
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.toggleRemember = this.toggleRemember.bind(this);
+    this.rememberToggleChecked = this.rememberToggleChecked.bind(this);
+  }
+
+  recallToDos() {
+    const getStorage = localStorage.getItem(toDoListState);
+
+    if(getStorage === null) {
+      return {
+        taskList: [],
+        remember: false
+      }
+    } else
+      return getStorage;
   }
 
   expandOrCollapseTask(task) {
@@ -155,6 +170,17 @@ class App extends React.Component {
     this.setState({taskList: allTasks});
   }
 
+  toggleRemember(checked) {
+    if(checked)
+      localStorage.setItem(toDoListState) = this.state;
+    else
+      localStorage.clear();
+  }
+
+  rememberToggleChecked() {
+    return this.state.remember;
+  }
+
   render() {
     return (
       <div id='task-list-container'>
@@ -169,6 +195,7 @@ class App extends React.Component {
           unmarkAllSubs={this.unmarkAllSubs}
           onDelete={this.deleteTask}
         />
+        <RememberToggle onToggle={toggleRemember} isChecked={rememberToggleChecked} />
         <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
       </div>
     )
