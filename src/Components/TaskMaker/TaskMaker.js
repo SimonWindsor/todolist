@@ -59,7 +59,9 @@ class TaskMaker extends React.Component {
   }
   
   render() {
-    const subtaskList = this.state.subtasks.forEach(subtask => subtask);
+    let subtaskList = this.state.subtasks.map(subtask => {
+      return <li>{subtask}</li>
+    });
 
     return(
       <div id="task-maker" hidden>
@@ -82,7 +84,7 @@ class TaskMaker extends React.Component {
             value={this.state.newSubtask}
           />
           <button type="button" hidden={this.state.subtaskToolsHidden} onClick={this.addSubtask} >+</button>
-          {subtaskList}
+          <ul>{subtaskList}</ul>
           <button type="submit">Create Task</button>
         </form>
       </div>
