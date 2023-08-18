@@ -61,6 +61,8 @@ class App extends React.Component {
       // ]
 
     this.recallToDos = this.recallToDos.bind(this);
+    this.handleQuickTaskChange = this.handleQuickTaskChange.bind(this);
+    this.addQuickTask = this.addQuickTask.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
     this.markUnmark = this.markUnmark.bind(this);
     this.markUnmarkSub = this.markUnmarkSub.bind(this);
@@ -81,14 +83,27 @@ class App extends React.Component {
     if(getStorage === null) {
       return {
         taskList: [],
-        remember: false
+        remember: false,
+        quickTask: ''
       }
     } else {
       return {
         taskList: JSON.parse(getStorage),
-        remember: true
+        remember: true,
+        quickTask: ''
       }
     }
+  }
+
+  handleQuickTaskChange(e) {
+    e.preventDefault();
+    this.setState({quickTask: e.target.value});
+  }
+
+  addQuickTask(e) {
+    e.preventDefault();
+    this.addTask(this.state.quickTask);
+    this.setState({quickTask: ''});
   }
 
   expandOrCollapseTask(task) {
@@ -208,6 +223,15 @@ class App extends React.Component {
     return (
       <div id='task-list-container'>
         <h1>TO DO:</h1>
+        <form onSubmit={this.addQuickTask}>
+          <input
+            type="text"
+            placeholder="Add a quick task here"
+            onChange={this.handleQuickTaskChange}
+            value={this.state.quickTask}
+          />
+          <button type="submit">Add</button>
+        </form>
         <button onClick={this.viewTaskMaker}>+</button>
         <TaskList
           taskList={this.state.taskList}
