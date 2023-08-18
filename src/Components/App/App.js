@@ -96,13 +96,16 @@ class App extends React.Component {
   }
 
   handleQuickTaskChange(e) {
-    e.preventDefault();
     this.setState({quickTask: e.target.value});
   }
 
   addQuickTask(e) {
     e.preventDefault();
-    this.addTask(this.state.quickTask);
+    
+    if(this.state.quickTask === '')
+      return;
+
+    this.addTask(this.state.quickTask, []);
     this.setState({quickTask: ''});
   }
 
@@ -176,14 +179,23 @@ class App extends React.Component {
     document.getElementById('task-maker').hidden = true;
   }
 
-  addTask(name) {
+  addTask(name, subtasks) {
+    let subtaskArray = [];
+    subtasks.forEach(subtask => {
+      subtaskArray.push({
+        name: subtask,
+        id: uuidv4(),
+        marked: false
+      })
+    });
+
     let allTasks = this.state.taskList;
     allTasks.push({
       taskName: name,
       id: uuidv4(),
       expanded: false,
       marked: false,
-      subtasks: []
+      subtasks: subtaskArray
     });
     
     this.updateAndSaveTasks(allTasks)
@@ -223,16 +235,17 @@ class App extends React.Component {
     return (
       <div id='task-list-container'>
         <h1>TO DO:</h1>
+        <button onClick={this.viewTaskMaker}>Add detailed task</button>
         <form onSubmit={this.addQuickTask}>
           <input
             type="text"
-            placeholder="Add a quick task here"
+            placeholder="...or add a quick task here"
             onChange={this.handleQuickTaskChange}
             value={this.state.quickTask}
           />
-          <button type="submit">Add</button>
+          <button type="submit">Add</button> 
         </form>
-        <button onClick={this.viewTaskMaker}>+</button>
+        <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
         <TaskList
           taskList={this.state.taskList}
           onExpandOrCollapse={this.expandOrCollapseTask}
@@ -242,7 +255,6 @@ class App extends React.Component {
           unmarkAllSubs={this.unmarkAllSubs}
           onDelete={this.deleteTask}
         />
-        <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
         <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
       </div>
     )
