@@ -12,7 +12,7 @@ class Subtask extends React.Component {
 
   toggleMark() {
     if(!this.props.mainMarked)
-      this.props.onMark(this.props.mainName, this.props.name);
+      this.props.onMark(this.props.Id, this.props.id);
   }
 
   isChecked() {
@@ -26,15 +26,15 @@ class Subtask extends React.Component {
 
   render() {
     return(
-      <div className="subtask">
+      <div>
         <input
           type="checkbox"
           className='subtask'
-          id={this.props.name}
+          id={this.props.id}
           checked={this.isChecked()}
           onClick={this.toggleMark}
         />
-        <label htmlFor={this.props.name}>{this.props.name}</label>
+        <label htmlFor={this.props.id}>{this.props.name}</label>
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import TaskList from '../TaskList/TaskList';
 import RememberToggle from '../RememberToggle/RememberToggle';
 import TaskMaker from '../TaskMaker/TaskMaker';
@@ -69,10 +70,10 @@ class App extends React.Component {
     this.closeTaskMaker = this.closeTaskMaker.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.updateAndSaveTasks = this.updateAndSaveTasks.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
     this.rememberToggleChecked = this.rememberToggleChecked.bind(this);
     this.rememberTasks = this.rememberTasks.bind(this);
-    this.forgetTasks = this.forgetTasks.bind(this);
   }
   
   recallToDos() {
@@ -89,44 +90,46 @@ class App extends React.Component {
         remember: true
       }
     }
-
-   }
+  }
 
   expandOrCollapseTask(task) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].taskName === task)
+      if(allTasks[i].id === task)
         allTasks[i].expanded = !allTasks[i].expanded;
     }
-    this.setState({taskList: allTasks});
+    
+    this.updateAndSaveTasks(allTasks)
   }
 
   markUnmark(task) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].taskName === task)
+      if(allTasks[i].id === task)
         allTasks[i].marked = !allTasks[i].marked;
     }
-    this.setState({taskList: allTasks});
+    
+    this.updateAndSaveTasks(allTasks)
   }
 
   markUnmarkSub(task, subtask) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].taskName === task) {
+      if(allTasks[i].id === task) {
         for(let j = 0; j < allTasks[i].subtasks.length; j++) {
-          if(allTasks[i].subtasks[j].name === subtask)
+          if(allTasks[i].subtasks[j].id === subtask)
             allTasks[i].subtasks[j].marked = !allTasks[i].subtasks[j].marked;
         }
       }
     }
-    this.setState({taskList: allTasks});
+    
+    this.updateAndSaveTasks(allTasks)
   }
 
   allSubsMarked(task) {
     const allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].taskName === task) {
+      if(allTasks[i].id === task) {
         if(allTasks[i].subtasks.length === 0)
           return false;
 
@@ -142,12 +145,13 @@ class App extends React.Component {
   unmarkAllSubs(task) {
     const allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].taskName === task) {
+      if(allTasks[i].id === task) {
         for(let j = 0; j < allTasks[i].subtasks.length; j++)
           allTasks[i].subtasks[j].marked = false;
       }
     }
-    this.setState({taskList: allTasks});
+    
+    this.updateAndSaveTasks(allTasks)
   }
 
   viewTaskMaker() {
@@ -162,25 +166,34 @@ class App extends React.Component {
     let allTasks = this.state.taskList;
     allTasks.push({
       taskName: name,
+      id: uuidv4(),
       expanded: false,
       marked: false,
       subtasks: []
     });
-    this.setState({taskList: allTasks});
+    
+    this.updateAndSaveTasks(allTasks)
   }
 
   deleteTask(deletedTask) {
-    const allTasks = this.state.taskList.filter(task => {
-      return task.taskName !== deletedTask
+    const getTasks = this.state.taskList;
+    const allTasks = getTasks.filter(task => {
+      return task.id !== deletedTask
     });
 
+    this.updateAndSaveTasks(allTasks)
+  }
+
+  updateAndSaveTasks(allTasks) {
     this.setState({taskList: allTasks});
+    if(this.state.remember)
+      this.rememberTasks();
   }
 
   toggleRemember() {
     const checked = !this.state.remember;
     this.setState({remember: checked});
-    checked ? this.rememberTasks() : this.forgetTasks();
+    checked ? this.rememberTasks() : localStorage.clear();
   }
 
   rememberToggleChecked() {
@@ -188,12 +201,7 @@ class App extends React.Component {
   }
 
   rememberTasks() {
-    console.log(this.state.taskList);
     localStorage.setItem('toDoListState', JSON.stringify(this.state.taskList));
-  }
-
-  forgetTasks() {
-    localStorage.clear();
   }
 
   render() {

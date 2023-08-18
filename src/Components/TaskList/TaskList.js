@@ -10,6 +10,7 @@ class TaskList extends React.Component {
           this.props.taskList.map(task => {
             return (
               <Task 
+                id={task.id}
                 name={task.taskName}
                 expanded={task.expanded}
                 marked={task.marked}
