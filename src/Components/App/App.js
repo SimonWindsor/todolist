@@ -73,7 +73,6 @@ class App extends React.Component {
     this.updateAndSaveTasks = this.updateAndSaveTasks.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
     this.rememberToggleChecked = this.rememberToggleChecked.bind(this);
-    this.rememberTasks = this.rememberTasks.bind(this);
   }
   
   recallToDos() {
@@ -176,8 +175,7 @@ class App extends React.Component {
   }
 
   deleteTask(deletedTask) {
-    const getTasks = this.state.taskList;
-    const allTasks = getTasks.filter(task => {
+    const allTasks = this.state.taskList.filter(task => {
       return task.id !== deletedTask
     });
 
@@ -185,23 +183,25 @@ class App extends React.Component {
   }
 
   updateAndSaveTasks(allTasks) {
+    /* deleteTask() would not remove last deleted task from local storage
+      when calling this method allTasks variable is being used instead to
+      update local storage instead of this.state.taskList */
     this.setState({taskList: allTasks});
     if(this.state.remember)
-      this.rememberTasks();
+      localStorage.setItem('toDoListState', JSON.stringify(allTasks));
   }
 
   toggleRemember() {
     const checked = !this.state.remember;
     this.setState({remember: checked});
-    checked ? this.rememberTasks() : localStorage.clear();
+    if(checked)
+      localStorage.setItem('toDoListState', JSON.stringify(this.state.taskList));
+    else
+      localStorage.clear();
   }
 
   rememberToggleChecked() {
     return this.state.remember;
-  }
-
-  rememberTasks() {
-    localStorage.setItem('toDoListState', JSON.stringify(this.state.taskList));
   }
 
   render() {
