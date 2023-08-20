@@ -64,7 +64,7 @@ class Task extends React.Component {
     }
 
     return (
-      <div className="task-list">
+      <div className="task-container">
         <input
           type="checkbox"
           className='task'

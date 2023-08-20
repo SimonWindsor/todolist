@@ -11,54 +11,6 @@ class App extends React.Component {
     super(props)
 
     this.state = this.recallToDos();
-      // taskList: [
-      //   {
-      //     taskName: 'Feed Cat', 
-      //     expanded: false,
-      //     marked: false, 
-      //     subtasks: [
-      //       {
-      //         name: 'Clean cat bowl', 
-      //         marked: false
-      //       },
-      //       {
-      //         name: 'Buy cat food', 
-      //         marked: false
-      //       },
-      //       {
-      //         name: 'Actually give it to the cat',
-      //         marked: false
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     taskName: 'Fix tap', 
-      //     expanded: false, 
-      //     marked: false,
-      //     subtasks: [
-      //       {
-      //         name: 'Get washers', 
-      //         marked: false
-      //       },
-      //       {
-      //         name: 'Replace washers', 
-      //         marked: false
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     taskName: 'Eat', 
-      //     expanded: false, 
-      //     marked: false,
-      //     subtasks: []
-      //   },
-      //   {
-      //     taskName: 'Play Guitar', 
-      //     expanded: false, 
-      //     marked: false,
-      //     subtasks: []
-      //   }
-      // ]
 
     this.recallToDos = this.recallToDos.bind(this);
     this.handleQuickTaskChange = this.handleQuickTaskChange.bind(this);
@@ -235,17 +187,19 @@ class App extends React.Component {
     return (
       <div id='task-list-container'>
         <h1>TO DO:</h1>
-        <button onClick={this.viewTaskMaker}>Add detailed task</button>
-        <form onSubmit={this.addQuickTask}>
-          <input
-            type="text"
-            placeholder="...or add a quick task here"
-            onChange={this.handleQuickTaskChange}
-            value={this.state.quickTask}
-          />
-          <button type="submit">Add</button> 
-        </form>
-        <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
+        <div id="top-controls">
+          <button id="task-maker-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
+          <form id="quick-add-form" onSubmit={this.addQuickTask}>
+            <input
+              type="text"
+              placeholder="...or add a quick task here"
+              onChange={this.handleQuickTaskChange}
+              value={this.state.quickTask}
+            />
+            <button type="submit">+</button> 
+          </form>
+          <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
+        </div>
         <TaskList
           taskList={this.state.taskList}
           onExpandOrCollapse={this.expandOrCollapseTask}
