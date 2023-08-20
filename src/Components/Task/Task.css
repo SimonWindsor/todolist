@@ -20,6 +20,7 @@ input.task + label {
 
 input.task:checked + label {
   text-decoration: line-through;
+  opacity: 50%;
 }
 
 #task-name-and-controls > button {

@@ -176,7 +176,7 @@ class App extends React.Component {
     if(checked)
       localStorage.setItem('toDoListState', JSON.stringify(this.state.taskList));
     else
-      localStorage.clear();
+      localStorage.removeItem('toDoListState');
   }
 
   rememberToggleChecked() {

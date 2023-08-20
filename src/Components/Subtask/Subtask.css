@@ -8,4 +8,5 @@ input.subtask + label {
 
 input.subtask:checked + label {
   text-decoration: line-through;
+  opacity: 50%;
 }
