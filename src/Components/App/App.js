@@ -185,31 +185,42 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id='task-list-container'>
+      <div id="app-container">
         <h1>TO DO:</h1>
-        <div id="top-controls">
-          <button id="task-maker-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
-          <form id="quick-add-form" onSubmit={this.addQuickTask}>
-            <input
-              type="text"
-              placeholder="...or add a quick task here"
-              onChange={this.handleQuickTaskChange}
-              value={this.state.quickTask}
-            />
-            <button type="submit">+</button> 
-          </form>
-          <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
+        <div id='task-list-container'>
+          <div id="top-controls">
+            <button id="task-maker-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
+            <form id="quick-add-form" onSubmit={this.addQuickTask}>
+              <input
+                type="text"
+                placeholder="...or add a quick task here"
+                onChange={this.handleQuickTaskChange}
+                value={this.state.quickTask}
+              />
+              <button
+                type="submit"
+                className='plus-btn'
+              >
+                {/* Use plus icon as background image */}
+              </button> 
+            </form>
+          </div>
+          <div id='remember-container'>
+            <span>Forget my tasks</span>
+            <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
+            <span>Remember my tasks</span>
+          </div>
+          <TaskList
+            taskList={this.state.taskList}
+            onExpandOrCollapse={this.expandOrCollapseTask}
+            onMark={this.markUnmark}
+            onMarkSub={this.markUnmarkSub}
+            allSubsMarked={this.allSubsMarked}
+            unmarkAllSubs={this.unmarkAllSubs}
+            onDelete={this.deleteTask}
+          />
+          <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
         </div>
-        <TaskList
-          taskList={this.state.taskList}
-          onExpandOrCollapse={this.expandOrCollapseTask}
-          onMark={this.markUnmark}
-          onMarkSub={this.markUnmarkSub}
-          allSubsMarked={this.allSubsMarked}
-          unmarkAllSubs={this.unmarkAllSubs}
-          onDelete={this.deleteTask}
-        />
-        <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
       </div>
     )
   }

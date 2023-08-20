@@ -1,4 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
 html {
-  background-color: #D0E562;
-  font-size: clamp(12px, 1.05vw, 30px);
+  background-color: #310a31;
+  font-size: clamp(12px, 1.1vw, 30px);
+  font-family: 'Pangolin', cursive;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.plus-btn {
+  background-image: url('Icons/plus.png');
+  background-size: contain;
+}
+
+.x-btn {
+  background-image: url('Icons/x.png');
+  background-size: contain;
+}
+
+.delete-btn {
+  background-image: url('Icons/bin.png');
+  background-size: contain;
+}
+
+.edit-btn {
+  background-image: url('Icons/edit.png');
+  background-size: contain;
+}
+
+.plus-btn:hover {
+  background-image: url('Icons/plushover.png');
+  background-size: contain;
+}
+
+.x-btn:hover {
+  background-image: url('Icons/xhover.png');
+  background-size: contain;
+}
+
+.delete-btn:hover {
+  background-image: url('Icons/binhover.png');
+  background-size: contain;
+}
+
+.edit-btn:hover {
+  background-image: url('Icons/edithover.png');
+  background-size: contain;
 }

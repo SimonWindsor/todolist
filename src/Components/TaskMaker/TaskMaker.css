@@ -5,7 +5,8 @@
   transform: translate(-50%, -50%);
   width: 400px;
   height: 300px;
-  border: 1px solid black;
+  background-color: #F4ECD6;
+  border: 1px solid #310a31;
 }
 
 #top-bar {
@@ -13,8 +14,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 2rem;
-  background-color: black;
+  height: 3rem;
+  background-color: #310a31;
   color: antiquewhite;
   display: flex;
   justify-content: center;
@@ -22,15 +23,49 @@
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 #close-button {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 0.5rem;
+  left: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
 }
 
-form {
-  position: relative;
+#task-name {
+  width: 95%;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+#task-maker-form {
+  height: 100%;
+}
+
+#subtask-controls {
+  background-color: white;
+  width: 60%;
+  height: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#subtask-controls > input {
+  background: none;
+  border: none;
+  outline: none;
+  height: 1rem;
+}
+
+#subtask-controls > button {
+  width: 1rem;
+  height: 1rem;
 }

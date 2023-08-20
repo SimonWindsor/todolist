@@ -9,7 +9,7 @@ class Task extends React.Component {
 
     this.toggleMark = this.toggleMark.bind(this);
     this.isChecked = this.isChecked.bind(this);
-    this.getButtonLabel = this.getButtonLabel.bind(this);
+    this.getButtonClassName = this.getButtonClassName.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
   }
@@ -32,8 +32,8 @@ class Task extends React.Component {
       return false;
   }
 
-  getButtonLabel() {
-    return this.props.expanded ? 'Collapse' : 'Expand';
+  getButtonClassName() {
+    return this.props.expanded ? 'expanded' : 'collapsed';
   }
 
   expandOrCollapseTask() {
@@ -65,17 +65,25 @@ class Task extends React.Component {
 
     return (
       <div className="task-container">
-        <input
-          type="checkbox"
-          className='task'
-          id={this.props.id}
-          checked={this.isChecked()}
-          onChange={this.toggleMark}
-        />
-        <label htmlFor={this.props.id}><h2>{this.props.name}</h2></label>
-        {/* Button appears here with correct label */}
-        <button onClick={this.expandOrCollapseTask}>{this.getButtonLabel()}</button>
-        <button onClick={this.deleteTask}>x</button>
+        <div id="task-name-and-controls">
+          <input
+            type="checkbox"
+            className='task'
+            id={this.props.id}
+            checked={this.isChecked()}
+            onChange={this.toggleMark}
+          />
+          <label htmlFor={this.props.id}><h2>{this.props.name}</h2></label>
+          {/* Button appears here with correct label */}
+          <button
+            onClick={this.expandOrCollapseTask}
+            className={this.getButtonClassName()}
+          >
+            {/* Add chevron icon as background image */}
+          </button>
+          <button class="edit-btn" >{/* Add edit icon as background image */}</button>
+          <button class="delete-btn" onClick={this.deleteTask}>{/* Add bin icon as background image */}</button>
+        </div>
         {/* subtasks appear if expand button is clicked */}
         {subTaskList}
       </div>

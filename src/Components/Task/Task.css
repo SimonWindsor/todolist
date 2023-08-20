@@ -2,11 +2,19 @@ h2 {
   font-size: 2rem;
 }
 
+#task-name-and-controls {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 1.5rem;
+}
+
 input.task {
   display: none;
 }
 
 input.task + label {
+  width: 60%;
   cursor: pointer;
 }
 
@@ -14,6 +22,28 @@ input.task:checked + label {
   text-decoration: line-through;
 }
 
-button {
-  cursor: pointer;
+#task-name-and-controls > button {
+  width: 2rem;
+  height: 2rem;
 }
+
+.collapsed {
+  background-image: url('../../Icons/chevrondown.png');
+  background-size: cover;
+}
+
+.expanded {
+  background-image: url('../../Icons/chevronup.png');
+  background-size: cover;
+}
+
+.collapsed:hover {
+  background-image: url('../../Icons/chevrondownhover.png');
+  background-size: cover;
+}
+
+.expanded:hover {
+  background-image: url('../../Icons/chevronuphover.png');
+  background-size: cover;
+}
+

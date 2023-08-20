@@ -66,24 +66,43 @@ class TaskMaker extends React.Component {
     return(
       <div id="task-maker" hidden>
         <div id="top-bar">
-          <button id="close-button" onClick={this.props.onClose}>x</button>
+          <button
+            id="close-button"
+            className="x-btn"
+            onClick={this.props.onClose}
+          >
+            {/* Add x icon as backgroun image */}
+          </button>
           <h3>Create Task</h3>
         </div>
-        <form onSubmit={this.createTask}>
+        <form id="task-maker-form" onSubmit={this.createTask}>
           <input
+            id="task-name"
             type="text"
             placeholder="Enter task name"
             onChange={this.handleChange}
             value={this.state.name}
           />
-          SubTasks: <button type="button" onClick={this.showAndHideSubtaskTools}>{this.addOrClose()}</button>
-          <input 
-            hidden={this.state.subtaskToolsHidden}
-            type="text"
-            onChange={this.handleSubChange}
-            value={this.state.newSubtask}
-          />
-          <button type="button" hidden={this.state.subtaskToolsHidden} onClick={this.addSubtask} >+</button>
+          <div id="subtask-open-close">
+            <span>Subtasks:</span>
+            <button type="button" onClick={this.showAndHideSubtaskTools}>{this.addOrClose()}</button>
+          </div>
+          <div id="subtask-controls" hidden={this.state.subtaskToolsHidden}>
+            <input 
+              hidden={this.state.subtaskToolsHidden}
+              type="text"
+              onChange={this.handleSubChange}
+              value={this.state.newSubtask}
+            />
+            <button
+              type="button"
+              className="plus-btn"
+              hidden={this.state.subtaskToolsHidden}
+              onClick={this.addSubtask}
+            >
+              {/* Add plus icon as background image */}  
+            </button>
+          </div>
           <ul>{subtaskList}</ul>
           <button type="submit">Create Task</button>
         </form>
