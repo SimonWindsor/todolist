@@ -22,7 +22,11 @@ button:disabled {
 .blue-btn {
   background-color: #6C91C2;
   border-radius: 1.5rem;
-  box-sizing: content-box;
+}
+
+.blue-btn:active {
+  border: #6C91C2 solid 0.2rem;
+  box-sizing: border-box;
 }
 
 .blue-btn:hover {

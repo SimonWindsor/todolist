@@ -27,14 +27,12 @@ h1 {
 }
 
 #task-maker-btn {
-  border: none;
   width: 40%;
   height: 3rem;
   font-size: 1.25rem;
 }
 
 #quick-add-form {
-  /* border: 1px solid black; */
   display: flex;
   justify-content: space-between;
   align-items: center;

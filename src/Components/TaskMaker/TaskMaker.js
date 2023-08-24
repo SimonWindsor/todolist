@@ -26,7 +26,11 @@ class TaskMaker extends React.Component {
   
     this.props.onAdd(this.state.name, this.state.subtasks);
     this.props.onClose()
-    this.setState({name: '', subtasks: []});
+    this.setState({
+      name: '',
+      subtasks: [],
+      newSubtask: ''
+    });
   }
 
   addSubtask() {
@@ -79,27 +83,34 @@ class TaskMaker extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <span>Subtasks:</span>
-          <div id="subtask-controls" hidden={this.state.subtaskToolsHidden}>
-            <input 
-              id="subtask-adder"
-              hidden={this.state.subtaskToolsHidden}
-              type="text"
-              placeholder="Add subtasks here..."
-              onChange={this.handleChange}
-              value={this.state.newSubtask}
-            />
-            <button
-              type="button"
-              className="plus-btn"
-              hidden={this.state.subtaskToolsHidden}
-              onClick={this.addSubtask}
-            >
-              {/* Add plus icon as background image */}  
-            </button>
+          <div id="subtask-controls-container">
+            <span>Subtasks:</span>
+            <div id="subtask-controls">
+              <input 
+                id="subtask-adder"
+                type="text"
+                placeholder="Add subtasks here..."
+                onChange={this.handleChange}
+                value={this.state.newSubtask}
+              />
+              <button
+                type="button"
+                className="plus-btn"
+                onClick={this.addSubtask}
+              >
+                {/* Add plus icon as background image */}  
+              </button>
+            </div>
           </div>
           <ul id="subtask-list">{subtaskList}</ul>
-          <button id="create-task-btn" type="submit" className="blue-btn" disabled={this.state.name===''}>Create Task</button>
+          <button
+            id="create-task-btn"
+            type="submit"
+            className="blue-btn"
+            disabled={this.state.name===''}
+          >
+            Create Task
+          </button>
         </form>
       </div>
     )
