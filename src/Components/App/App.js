@@ -189,7 +189,7 @@ class App extends React.Component {
         <h1>TO DO:</h1>
         <div id='task-list-container'>
           <div id="top-controls">
-            <button id="task-maker-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
+            <button id="task-maker-btn" className="blue-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
             <form id="quick-add-form" onSubmit={this.addQuickTask}>
               <input
                 type="text"

@@ -17,7 +17,6 @@ h1 {
   text-align: center;
   color: #F4ECD6;
   margin: 0;
-  
 }
 
 #top-controls {
@@ -28,26 +27,11 @@ h1 {
 }
 
 #task-maker-btn {
-  position: relative;
   border: none;
   width: 40%;
   height: 3rem;
-  background-color: #6C91C2;
-  /* box-shadow: 0 5px hsl(34, 100%, 40%); */
-  border-radius: 1.5rem;
-  box-sizing: content-box;
   font-size: 1.25rem;
 }
-
-/* #task-maker-btn:hover{
-  background-color: black;
-  color: white;
-}
-
-#task-maker-btn:active {
-  top: 5px;
-  box-shadow: none;
-} */
 
 #quick-add-form {
   /* border: 1px solid black; */
@@ -87,5 +71,4 @@ h1 {
   #task-list-container {
     width: 95%;
   }
-
 }

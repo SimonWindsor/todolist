@@ -26,7 +26,7 @@ class Subtask extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className='subtask-container'>
         <input
           type="checkbox"
           className='subtask'

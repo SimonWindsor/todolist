@@ -9,16 +9,13 @@ class TaskMaker extends React.Component {
     this.state = {
       name: '',
       subtasks: [],
-      newSubtask: '',
-      subtaskToolsHidden: true
+      newSubtask: ''
     };
 
     this.createTask = this.createTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubChange = this.handleSubChange.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
-    this.showAndHideSubtaskTools = this.showAndHideSubtaskTools.bind(this);
-    this.addOrClose = this.addOrClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   createTask(e) {
@@ -29,7 +26,7 @@ class TaskMaker extends React.Component {
   
     this.props.onAdd(this.state.name, this.state.subtasks);
     this.props.onClose()
-    this.setState({name: ''});
+    this.setState({name: '', subtasks: []});
   }
 
   addSubtask() {
@@ -42,20 +39,19 @@ class TaskMaker extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({name: e.target.value})
+    if(e.target.id === 'task-name')
+      this.setState({name: e.target.value});
+    else if(e.target.id === 'subtask-adder')
+      this.setState({newSubtask: e.target.value});
   }
 
-  handleSubChange(e) {
-    this.setState({newSubtask: e.target.value})
-  }
-
-  showAndHideSubtaskTools() {
-    const showing = !this.state.subtaskToolsHidden;
-    this.setState({subtaskToolsHidden: showing});
-  }
-
-  addOrClose() {
-    return this.state.subtaskToolsHidden ? 'Add' : 'Close'
+  handleClose() {
+    this.setState({
+      name: '',
+      subtasks: [],
+      newSubtask: ''
+    });
+    this.props.onClose()
   }
   
   render() {
@@ -69,7 +65,7 @@ class TaskMaker extends React.Component {
           <button
             id="close-button"
             className="x-btn"
-            onClick={this.props.onClose}
+            onClick={this.handleClose}
           >
             {/* Add x icon as backgroun image */}
           </button>
@@ -83,15 +79,14 @@ class TaskMaker extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <div id="subtask-open-close">
-            <span>Subtasks:</span>
-            <button type="button" onClick={this.showAndHideSubtaskTools}>{this.addOrClose()}</button>
-          </div>
+          <span>Subtasks:</span>
           <div id="subtask-controls" hidden={this.state.subtaskToolsHidden}>
             <input 
+              id="subtask-adder"
               hidden={this.state.subtaskToolsHidden}
               type="text"
-              onChange={this.handleSubChange}
+              placeholder="Add subtasks here..."
+              onChange={this.handleChange}
               value={this.state.newSubtask}
             />
             <button
@@ -103,8 +98,8 @@ class TaskMaker extends React.Component {
               {/* Add plus icon as background image */}  
             </button>
           </div>
-          <ul>{subtaskList}</ul>
-          <button type="submit">Create Task</button>
+          <ul id="subtask-list">{subtaskList}</ul>
+          <button id="create-task-btn" type="submit" className="blue-btn" disabled={this.state.name===''}>Create Task</button>
         </form>
       </div>
     )

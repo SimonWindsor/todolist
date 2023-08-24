@@ -11,6 +11,25 @@ button {
   cursor: pointer;
 }
 
+button:active {
+  border: #310a31 solid 0.2rem;
+}
+
+button:disabled {
+  opacity: 50%;
+}
+
+.blue-btn {
+  background-color: #6C91C2;
+  border-radius: 1.5rem;
+  box-sizing: content-box;
+}
+
+.blue-btn:hover {
+  background-color: black;
+  color: #F4ECD6;
+}
+
 .plus-btn {
   background-image: url('Icons/plus.png');
   background-size: contain;

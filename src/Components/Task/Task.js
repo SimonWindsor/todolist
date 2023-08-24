@@ -78,6 +78,7 @@ class Task extends React.Component {
           <button
             onClick={this.expandOrCollapseTask}
             className={this.getButtonClassName()}
+            disabled={this.props.subtasks.length === 0}
           >
             {/* Add chevron icon as background image */}
           </button>
