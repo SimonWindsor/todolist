@@ -69,4 +69,9 @@ h1 {
   #task-list-container {
     width: 95%;
   }
+  
+  #task-maker-btn,
+  #quick-add-form > input {
+    font-size: 0.9rem;
+  }
 }
