@@ -11,6 +11,7 @@ class Task extends React.Component {
     this.isChecked = this.isChecked.bind(this);
     this.getButtonClassName = this.getButtonClassName.bind(this);
     this.expandOrCollapseTask = this.expandOrCollapseTask.bind(this);
+    this.editTask = this.editTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
   }
 
@@ -38,6 +39,10 @@ class Task extends React.Component {
 
   expandOrCollapseTask() {
     this.props.onExpandOrCollapse(this.props.id);
+  }
+
+  editTask() {
+    this.props.onEdit(this.props.id);
   }
 
   deleteTask() {
@@ -82,8 +87,8 @@ class Task extends React.Component {
           >
             {/* Add chevron icon as background image */}
           </button>
-          <button class="edit-btn" >{/* Add edit icon as background image */}</button>
-          <button class="delete-btn" onClick={this.deleteTask}>{/* Add bin icon as background image */}</button>
+          <button className="edit-btn" onClick={this.editTask}>{/* Add edit icon as background image */}</button>
+          <button className="delete-btn" onClick={this.deleteTask}>{/* Add bin icon as background image */}</button>
         </div>
         {/* subtasks appear if expand button is clicked */}
         {subTaskList}

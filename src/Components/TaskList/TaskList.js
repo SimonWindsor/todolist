@@ -20,6 +20,7 @@ class TaskList extends React.Component {
                 onMarkSub={this.props.onMarkSub}
                 allSubsMarked={this.props.allSubsMarked}
                 unmarkAllSubs={this.props.unmarkAllSubs}
+                onEdit={this.props.onEdit}
                 onDelete={this.props.onDelete}
               />
             )

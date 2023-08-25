@@ -1,28 +1,35 @@
 import React from "react";
 
-import './TaskMaker.css'
+import './TaskEditor.css'
 
-class TaskMaker extends React.Component {
+class TaskEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-      subtasks: [],
-      newSubtask: ''
-    };
+    this.state = this.getTask();
 
-    this.createTask = this.createTask.bind(this);
+    this.getTask = this.getTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
-  createTask(e) {
-    e.preventDefault();
+  getTask() {
+    if(this.props.task === null)
+      return {};
+    else return {
+      id: this.props.task.id,
+      name: this.props.task.name,
+      subtasks: [], // this.props.task.subtasks.map(subtask => {
+      //   return subtask.name;
+      // }),
+      newSubtask: ''
+    };
+  }
 
-    if(this.state.name === '')
-      return;
+  updateTask(e) {
+    e.preventDefault();
   
     this.props.onAdd(this.state.name, this.state.subtasks);
     this.props.onClose()
@@ -59,12 +66,12 @@ class TaskMaker extends React.Component {
   }
   
   render() {
-    let subtaskList = this.state.subtasks.map(subtask => {
-      return <li>{subtask}</li>
-    });
+    // let subtaskList = this.state.subtasks.map(subtask => {
+    //   return <li>{subtask}</li>
+    // });
 
     return(
-      <div id="task-maker" hidden>
+      <div id="task-editor" hidden>
         <div id="top-bar">
           <button
             id="close-button"
@@ -73,9 +80,9 @@ class TaskMaker extends React.Component {
           >
             {/* Add x icon as backgroun image */}
           </button>
-          <h3>Create Task</h3>
+          <h3>Edit Task</h3>
         </div>
-        <form id="task-maker-form" onSubmit={this.createTask}>
+        <form id="task-editor-form" onSubmit={this.updateTaskTask}>
           <input
             id="task-name"
             type="text"
@@ -99,14 +106,14 @@ class TaskMaker extends React.Component {
               {/* Add plus icon as background image */}  
             </button>
           </div>
-          <ul id="subtask-list">{subtaskList}</ul>
+          <ul id="subtask-list">{/*subtaskList*/}</ul>
           <button
             id="update-task-btn"
             type="submit"
             className="blue-btn"
             disabled={this.state.name===''}
           >
-            Create Task
+            Update Task
           </button>
         </form>
       </div>
@@ -114,4 +121,4 @@ class TaskMaker extends React.Component {
   }
 }
 
-export default TaskMaker;
+export default TaskEditor;

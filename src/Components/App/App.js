@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import TaskList from '../TaskList/TaskList';
 import RememberToggle from '../RememberToggle/RememberToggle';
 import TaskMaker from '../TaskMaker/TaskMaker';
+import TaskEditor from '../TaskEditor/TaskEditor';
 
 import './App.css';
 
@@ -20,13 +21,14 @@ class App extends React.Component {
     this.markUnmarkSub = this.markUnmarkSub.bind(this);
     this.allSubsMarked = this.allSubsMarked.bind(this);
     this.unmarkAllSubs = this.unmarkAllSubs.bind(this);
-    this.viewTaskMaker = this.viewTaskMaker.bind(this);
-    this.closeTaskMaker = this.closeTaskMaker.bind(this);
+    this.viewOrCloseTaskMaker = this.viewOrCloseTaskMaker.bind(this);
+    this.viewOrCloseTaskEditor = this.viewOrCloseTaskEditor.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.editTask = this.editTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateAndSaveTasks = this.updateAndSaveTasks.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
-    this.rememberToggleChecked = this.rememberToggleChecked.bind(this);
   }
   
   recallToDos() {
@@ -36,13 +38,15 @@ class App extends React.Component {
       return {
         taskList: [],
         remember: false,
-        quickTask: ''
+        quickTask: '',
+        taskToEdit: null
       }
     } else {
       return {
         taskList: JSON.parse(getStorage),
         remember: true,
-        quickTask: ''
+        quickTask: '',
+        taskToEdit: null
       }
     }
   }
@@ -61,32 +65,32 @@ class App extends React.Component {
     this.setState({quickTask: ''});
   }
 
-  expandOrCollapseTask(task) {
+  expandOrCollapseTask(taskId) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === task)
+      if(allTasks[i].id === taskId)
         allTasks[i].expanded = !allTasks[i].expanded;
     }
     
     this.updateAndSaveTasks(allTasks)
   }
 
-  markUnmark(task) {
+  markUnmark(taskId) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === task)
+      if(allTasks[i].id === taskId)
         allTasks[i].marked = !allTasks[i].marked;
     }
     
     this.updateAndSaveTasks(allTasks)
   }
 
-  markUnmarkSub(task, subtask) {
+  markUnmarkSub(taskId, subtaskId) {
     let allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === task) {
+      if(allTasks[i].id === taskId) {
         for(let j = 0; j < allTasks[i].subtasks.length; j++) {
-          if(allTasks[i].subtasks[j].id === subtask)
+          if(allTasks[i].subtasks[j].id === subtaskId)
             allTasks[i].subtasks[j].marked = !allTasks[i].subtasks[j].marked;
         }
       }
@@ -95,10 +99,10 @@ class App extends React.Component {
     this.updateAndSaveTasks(allTasks)
   }
 
-  allSubsMarked(task) {
+  allSubsMarked(taskId) {
     const allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === task) {
+      if(allTasks[i].id === taskId) {
         if(allTasks[i].subtasks.length === 0)
           return false;
 
@@ -111,10 +115,10 @@ class App extends React.Component {
     return true;
   }
 
-  unmarkAllSubs(task) {
+  unmarkAllSubs(taskId) {
     const allTasks = this.state.taskList;
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === task) {
+      if(allTasks[i].id === taskId) {
         for(let j = 0; j < allTasks[i].subtasks.length; j++)
           allTasks[i].subtasks[j].marked = false;
       }
@@ -123,12 +127,12 @@ class App extends React.Component {
     this.updateAndSaveTasks(allTasks)
   }
 
-  viewTaskMaker() {
-    document.getElementById('task-maker').hidden = false;
+  viewOrCloseTaskMaker() {
+    document.getElementById('task-maker').hidden = !document.getElementById('task-maker').hidden;
   }
 
-  closeTaskMaker() {
-    document.getElementById('task-maker').hidden = true;
+  viewOrCloseTaskEditor() {
+    document.getElementById('task-editor').hidden = !document.getElementById('task-editor').hidden;
   }
 
   addTask(name, subtasks) {
@@ -153,9 +157,21 @@ class App extends React.Component {
     this.updateAndSaveTasks(allTasks)
   }
 
-  deleteTask(deletedTask) {
+  editTask(taskId) {
+    for(let i = 0; i < this.state.taskList.length; i++) {
+      if(this.state.taskList[i].id === taskId)
+        this.setState({taskToEdit: this.state.taskList[i]})
+    }
+    this.viewOrCloseTaskEditor();
+  }
+
+  updateTask(name, id, subtasks) {
+
+  }
+
+  deleteTask(deletedTaskId) {
     const allTasks = this.state.taskList.filter(task => {
-      return task.id !== deletedTask
+      return task.id !== deletedTaskId
     });
 
     this.updateAndSaveTasks(allTasks)
@@ -179,17 +195,13 @@ class App extends React.Component {
       localStorage.removeItem('toDoListState');
   }
 
-  rememberToggleChecked() {
-    return this.state.remember;
-  }
-
   render() {
     return (
       <div id="app-container">
         <h1>TO DO:</h1>
         <div id='task-list-container'>
           <div id="top-controls">
-            <button id="task-maker-btn" className="blue-btn" onClick={this.viewTaskMaker}>Add detailed task</button>
+            <button id="task-maker-btn" className="blue-btn" onClick={this.viewOrCloseTaskMaker}>Add detailed task</button>
             <form id="quick-add-form" onSubmit={this.addQuickTask}>
               <input
                 type="text"
@@ -207,7 +219,7 @@ class App extends React.Component {
           </div>
           <div id='remember-container'>
             <span>Forget my tasks</span>
-            <RememberToggle onToggle={this.toggleRemember} isChecked={this.rememberToggleChecked} />
+            <RememberToggle onToggle={this.toggleRemember} isChecked={this.state.remember} />
             <span>Remember my tasks</span>
           </div>
           <TaskList
@@ -217,9 +229,11 @@ class App extends React.Component {
             onMarkSub={this.markUnmarkSub}
             allSubsMarked={this.allSubsMarked}
             unmarkAllSubs={this.unmarkAllSubs}
+            onEdit={this.editTask}
             onDelete={this.deleteTask}
           />
-          <TaskMaker onClose={this.closeTaskMaker} onAdd={this.addTask} />
+          <TaskMaker onClose={this.viewOrCloseTaskMaker} onAdd={this.addTask} />
+          <TaskEditor onClose={this.viewOrCloseTaskEditor} onUpdate={this.addTask} task={this.state.taskToEdit} />
         </div>
       </div>
     )
