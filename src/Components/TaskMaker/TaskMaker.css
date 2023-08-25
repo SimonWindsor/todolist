@@ -4,7 +4,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 35%;
-  height: 300px;
+  height: 50%;
   background-color: #F4ECD6;
   border: 1px solid #310a31;
 }
@@ -36,15 +36,7 @@ h3 {
 }
 
 #task-maker-form {
-  height: calc(300px - 3rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#task-maker-form {
-  height: calc(300px - 3rem);
+  height: calc(100% - 3rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -59,6 +51,7 @@ h3 {
   background: none;
   outline: none;
   border: none;
+  margin-bottom: 20px;
 }
 
 #subtask-controls {
@@ -85,10 +78,11 @@ h3 {
 }
 
 #subtask-list {
-  height: 130px;
+  height: calc(100% - 9rem);
   width: 60%;
   list-style-type: square;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #subtask-list > li {
@@ -96,9 +90,10 @@ h3 {
 }
 
 #create-task-btn {
-  margin-bottom: 20px;
-  width: 100px;
-  height: 40px;
+  margin-bottom: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+  font-size: 0.8rem;
 }
 
 @media screen and (orientation: portrait) {
