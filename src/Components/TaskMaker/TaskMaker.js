@@ -83,24 +83,21 @@ class TaskMaker extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <div id="subtask-controls-container">
-            <span>Subtasks:</span>
-            <div id="subtask-controls">
-              <input 
-                id="subtask-adder"
-                type="text"
-                placeholder="Add subtasks here..."
-                onChange={this.handleChange}
-                value={this.state.newSubtask}
-              />
-              <button
-                type="button"
-                className="plus-btn"
-                onClick={this.addSubtask}
-              >
-                {/* Add plus icon as background image */}  
-              </button>
-            </div>
+          <div id="subtask-controls">
+            <input 
+              id="subtask-adder"
+              type="text"
+              placeholder="Add subtasks here..."
+              onChange={this.handleChange}
+              value={this.state.newSubtask}
+            />
+            <button
+              type="button"
+              className="plus-btn"
+              onClick={this.addSubtask}
+            >
+              {/* Add plus icon as background image */}  
+            </button>
           </div>
           <ul id="subtask-list">{subtaskList}</ul>
           <button
