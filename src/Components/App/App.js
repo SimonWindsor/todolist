@@ -39,14 +39,22 @@ class App extends React.Component {
         taskList: [],
         remember: false,
         quickTask: '',
-        taskToEdit: null
+        taskToEdit: {
+          taskName: '',
+          id: '',
+          subtasks: []
+        }
       }
     } else {
       return {
         taskList: JSON.parse(getStorage),
         remember: true,
         quickTask: '',
-        taskToEdit: null
+        taskToEdit: {
+          taskName: '',
+          id: '',
+          subtasks: []
+        }
       }
     }
   }
@@ -232,9 +240,9 @@ class App extends React.Component {
             onEdit={this.editTask}
             onDelete={this.deleteTask}
           />
-          <TaskMaker onClose={this.viewOrCloseTaskMaker} onAdd={this.addTask} />
-          <TaskEditor onClose={this.viewOrCloseTaskEditor} onUpdate={this.addTask} task={this.state.taskToEdit} />
         </div>
+        <TaskMaker onClose={this.viewOrCloseTaskMaker} onAdd={this.addTask} />
+        <TaskEditor onClose={this.viewOrCloseTaskEditor} onUpdate={this.updateTask} task={this.state.taskToEdit} />
       </div>
     )
   }

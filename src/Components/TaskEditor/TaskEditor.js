@@ -6,26 +6,28 @@ class TaskEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.getTask();
+    this.state = {
+      id: this.props.task.id,
+      name: this.props.task.taskName,
+      subtasks: this.props.task.subtasks, 
+      newSubtask: ''
+    };
 
-    this.getTask = this.getTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
-  getTask() {
-    if(this.props.task === null)
-      return {};
-    else return {
-      id: this.props.task.id,
-      name: this.props.task.name,
-      subtasks: [], // this.props.task.subtasks.map(subtask => {
-      //   return subtask.name;
-      // }),
-      newSubtask: ''
-    };
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.id !== this.props.id) {
+      this.setState({
+        id: this.props.task.id,
+        name: this.props.task.taskName,
+        subtasks: this.props.task.subtasks, 
+        newSubtask: ''
+      });
+    }
   }
 
   updateTask(e) {
