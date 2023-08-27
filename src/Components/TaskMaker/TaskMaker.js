@@ -66,11 +66,13 @@ class TaskMaker extends React.Component {
   }
   
   render() {
+    // Forms the list of subtask
     let subtaskList = this.state.subtasks.map((subtask, index) => {
       return (
         <li key={index}>
           {subtask}
           <button
+            type="button"
             id="remove-subtask-btn"
             className="delete-btn"
             value={index}

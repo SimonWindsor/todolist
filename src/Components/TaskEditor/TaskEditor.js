@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 import './TaskEditor.css'
 
@@ -16,6 +17,7 @@ class TaskEditor extends React.Component {
     this.updateTask = this.updateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
+    this.removeSubtask = this.removeSubtask.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -44,12 +46,22 @@ class TaskEditor extends React.Component {
   }
 
   addSubtask() {
-    let allSubtasks = this.state.subtasks;
     if(this.state.newSubtask === '')
       return;
 
-    allSubtasks.push(this.state.newSubtask);
-    this.setState({newSubtask: ''});
+    let allSubtasks = this.state.subtasks;
+    allSubtasks.push({
+      name: this.state.newSubtask,
+      id: uuidv4(),
+      marked: false
+    });
+    this.setState({subtasks: allSubtasks, newSubtask: ''});
+  }
+
+  removeSubtask(e) {
+    const allSubs = this.state.subtasks;
+    allSubs.splice(e.target.value, 1);
+    this.setState({subtasks: allSubs});
   }
 
   handleChange(e) {
@@ -69,9 +81,23 @@ class TaskEditor extends React.Component {
   }
   
   render() {
-    // let subtaskList = this.state.subtasks.map(subtask => {
-    //   return <li>{subtask}</li>
-    // });
+    // Forms the list of subtask
+    let subtaskList = this.state.subtasks.map((subtask, index) => {
+      return (
+        <li key={index}>
+          {subtask.name}
+          <button
+            type="button"
+            id="remove-subtask-btn"
+            className="delete-btn"
+            value={index}
+            onClick={this.removeSubtask}
+          >
+            {/* Add bin icon as background image */}
+          </button>
+        </li>
+      )
+    });
 
     return(
       <div id="task-editor">
@@ -109,7 +135,7 @@ class TaskEditor extends React.Component {
               {/* Add plus icon as background image */}  
             </button>
           </div>
-          <ul id="subtask-list">{/*subtaskList*/}</ul>
+          <ul id="subtask-list">{subtaskList}</ul>
           <button
             id="update-task-btn"
             type="submit"
