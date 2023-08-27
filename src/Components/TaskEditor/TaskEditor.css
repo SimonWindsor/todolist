@@ -87,6 +87,14 @@ h3 {
 
 #subtask-list > li {
   font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#remove-subtask-btn {
+  height: 1.4rem;
+  width: 1.4rem;
 }
 
 #update-task-btn {
