@@ -22,10 +22,10 @@ class App extends React.Component {
     this.allSubsMarked = this.allSubsMarked.bind(this);
     this.unmarkAllSubs = this.unmarkAllSubs.bind(this);
     this.viewOrCloseTaskMaker = this.viewOrCloseTaskMaker.bind(this);
-    this.viewOrCloseTaskEditor = this.viewOrCloseTaskEditor.bind(this);
     this.addTask = this.addTask.bind(this);
     this.editTask = this.editTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
+    this.closeEditing = this.closeEditing.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateAndSaveTasks = this.updateAndSaveTasks.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
@@ -39,22 +39,16 @@ class App extends React.Component {
         taskList: [],
         remember: false,
         quickTask: '',
-        taskToEdit: {
-          taskName: '',
-          id: '',
-          subtasks: []
-        }
+        edting: false,
+        taskToEdit: null
       }
     } else {
       return {
         taskList: JSON.parse(getStorage),
         remember: true,
         quickTask: '',
-        taskToEdit: {
-          taskName: '',
-          id: '',
-          subtasks: []
-        }
+        edting: false,
+        taskToEdit: null
       }
     }
   }
@@ -139,10 +133,6 @@ class App extends React.Component {
     document.getElementById('task-maker').hidden = !document.getElementById('task-maker').hidden;
   }
 
-  viewOrCloseTaskEditor() {
-    document.getElementById('task-editor').hidden = !document.getElementById('task-editor').hidden;
-  }
-
   addTask(name, subtasks) {
     let subtaskArray = [];
     subtasks.forEach(subtask => {
@@ -165,16 +155,24 @@ class App extends React.Component {
     this.updateAndSaveTasks(allTasks)
   }
 
-  editTask(taskId) {
-    for(let i = 0; i < this.state.taskList.length; i++) {
-      if(this.state.taskList[i].id === taskId)
-        this.setState({taskToEdit: this.state.taskList[i]})
-    }
-    this.viewOrCloseTaskEditor();
+  editTask(task) {
+    this.setState({edting: true, taskToEdit: task});
   }
 
-  updateTask(name, id, subtasks) {
+  updateTask(id, name, subtasks) {
+    let allTasks = this.state.taskList;
 
+    for(let i = 0; i < allTasks.length; i++) {
+      if(allTasks[i].id === id)
+        allTasks[i] = {taskName: name, subtasks: subtasks};
+    }
+    this.setState({taskList: allTasks});
+
+    this.updateAndSaveTasks(allTasks);
+  }
+
+  closeEditing() {
+    this.setState({edting: false, taskIdToEdit: null});
   }
 
   deleteTask(deletedTaskId) {
@@ -204,6 +202,9 @@ class App extends React.Component {
   }
 
   render() {
+    const taskEditor = !this.state.edting ? null :
+      <TaskEditor onClose={this.closeEditing} onUpdate={this.updateTask} task={this.state.taskToEdit} />
+
     return (
       <div id="app-container">
         <h1>TO DO:</h1>
@@ -242,7 +243,7 @@ class App extends React.Component {
           />
         </div>
         <TaskMaker onClose={this.viewOrCloseTaskMaker} onAdd={this.addTask} />
-        <TaskEditor onClose={this.viewOrCloseTaskEditor} onUpdate={this.updateTask} task={this.state.taskToEdit} />
+        {taskEditor}
       </div>
     )
   }

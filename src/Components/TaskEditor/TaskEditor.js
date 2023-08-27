@@ -33,9 +33,10 @@ class TaskEditor extends React.Component {
   updateTask(e) {
     e.preventDefault();
   
-    this.props.onAdd(this.state.name, this.state.subtasks);
+    this.props.onUpdate(this.state.id, this.state.name, this.state.subtasks);
     this.props.onClose()
     this.setState({
+      id: '',
       name: '',
       subtasks: [],
       newSubtask: ''
@@ -73,7 +74,7 @@ class TaskEditor extends React.Component {
     // });
 
     return(
-      <div id="task-editor" hidden>
+      <div id="task-editor">
         <div id="top-bar">
           <button
             id="close-button"
@@ -84,7 +85,7 @@ class TaskEditor extends React.Component {
           </button>
           <h3>Edit Task</h3>
         </div>
-        <form id="task-editor-form" onSubmit={this.updateTaskTask}>
+        <form id="task-editor-form" onSubmit={this.updateTask}>
           <input
             id="task-name"
             type="text"

@@ -34,12 +34,12 @@ class TaskMaker extends React.Component {
   }
 
   addSubtask() {
-    let allSubtasks = this.state.subtasks;
     if(this.state.newSubtask === '')
       return;
 
+    let allSubtasks = this.state.subtasks;
     allSubtasks.push(this.state.newSubtask);
-    this.setState({newSubtask: ''});
+    this.setState({subtasks: allSubtasks, newSubtask: ''});
   }
 
   handleChange(e) {

@@ -1,7 +1,3 @@
-h2 {
-  font-size: 2rem;
-}
-
 #task-name-and-controls {
   display: flex;
   align-items: baseline;
@@ -11,6 +7,10 @@ h2 {
 
 input.task {
   display: none;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 input.task + label {

@@ -42,7 +42,14 @@ class Task extends React.Component {
   }
 
   editTask() {
-    this.props.onEdit(this.props.id);
+    this.props.onEdit({
+      id: this.props.id,
+      taskName: this.props.name,
+      expanded: this.props.expanded,
+      marked: this.props.marked,
+      subtasks: this.props.subtasks
+    });
+
   }
 
   deleteTask() {
