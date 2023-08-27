@@ -36,7 +36,6 @@ class TaskEditor extends React.Component {
     e.preventDefault();
   
     this.props.onUpdate(this.state.id, this.state.name, this.state.subtasks);
-    this.props.onClose()
     this.setState({
       id: '',
       name: '',

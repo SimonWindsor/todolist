@@ -163,10 +163,12 @@ class App extends React.Component {
     let allTasks = this.state.taskList;
 
     for(let i = 0; i < allTasks.length; i++) {
-      if(allTasks[i].id === id)
-        allTasks[i] = {taskName: name, subtasks: subtasks};
+      if(allTasks[i].id === id) {
+        allTasks[i].taskName = name;
+        allTasks[i].subtasks = subtasks;
+      }
     }
-    this.setState({taskList: allTasks});
+    this.setState({taskList: allTasks, edting: false, taskToEdit: null});
 
     this.updateAndSaveTasks(allTasks);
   }
