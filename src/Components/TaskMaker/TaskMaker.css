@@ -89,6 +89,11 @@ h3 {
   font-size: 1.4rem;
 }
 
+#remove-subtask-btn {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
 #create-task-btn {
   margin-bottom: 1rem;
   width: 7rem;

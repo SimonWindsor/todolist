@@ -15,6 +15,7 @@ class TaskMaker extends React.Component {
     this.createTask = this.createTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
+    this.removeSubtask = this.removeSubtask.bind (this);
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -42,6 +43,12 @@ class TaskMaker extends React.Component {
     this.setState({subtasks: allSubtasks, newSubtask: ''});
   }
 
+  removeSubtask(e) {
+    const allSubs = this.state.subtasks;
+    allSubs.splice(e.target.value, 1);
+    this.setState({subtasks: allSubs});
+  }
+
   handleChange(e) {
     if(e.target.id === 'task-name')
       this.setState({name: e.target.value});
@@ -59,8 +66,20 @@ class TaskMaker extends React.Component {
   }
   
   render() {
-    let subtaskList = this.state.subtasks.map(subtask => {
-      return <li>{subtask}</li>
+    let subtaskList = this.state.subtasks.map((subtask, index) => {
+      return (
+        <li key={index}>
+          {subtask}
+          <button
+            id="remove-subtask-btn"
+            className="delete-btn"
+            value={index}
+            onClick={this.removeSubtask}
+          >
+            {/* Add bin icon as background image */}
+          </button>
+        </li>
+      )
     });
 
     return(
