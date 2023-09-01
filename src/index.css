@@ -21,6 +21,7 @@ button:disabled {
 
 .blue-btn {
   background-color: #6C91C2;
+  color: #000000;
   border-radius: 1.5rem;
 }
 
@@ -30,7 +31,7 @@ button:disabled {
 }
 
 .blue-btn:hover {
-  background-color: black;
+  background-color: #000000;
   color: #F4ECD6;
 }
 
