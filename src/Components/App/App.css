@@ -51,6 +51,20 @@ h1 {
   margin-left: 0.5rem;
 }
 
+#quick-add-form > input::placeholder {
+  color: #292929;
+  opacity: 1; /* Firefox */
+}
+
+#quick-add-form > input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #292929;
+;
+}
+
+#quick-add-form > input::-ms-input-placeholder { /* Microsoft Edge */
+ color: #292929;
+}
+
 #quick-add-form > button {
   height: 2.5rem;
   width: 2.5rem;
