@@ -1,0 +1,5 @@
+.task-list {
+  height: calc(100% - 7.5rem);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

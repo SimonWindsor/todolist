@@ -92,6 +92,10 @@ h3 {
   align-items: center;
 }
 
+#subtask-content {
+  width: 80%;
+}
+
 #remove-subtask-btn {
   height: 1.4rem;
   width: 1.4rem;

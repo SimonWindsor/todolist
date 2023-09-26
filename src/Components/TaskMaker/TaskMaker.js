@@ -70,7 +70,9 @@ class TaskMaker extends React.Component {
     let subtaskList = this.state.subtasks.map((subtask, index) => {
       return (
         <li key={index}>
-          {subtask}
+          <div id="subtask-content">
+            {subtask}
+          </div>
           <button
             type="button"
             id="remove-subtask-btn"

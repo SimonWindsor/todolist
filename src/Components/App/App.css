@@ -7,8 +7,6 @@
   border: 6px solid #847996;
   border-radius: 16px;
   height: calc(100vh - 7rem);
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 h1 {

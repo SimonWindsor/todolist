@@ -84,7 +84,9 @@ class TaskEditor extends React.Component {
     let subtaskList = this.state.subtasks.map((subtask, index) => {
       return (
         <li key={index}>
-          {subtask.name}
+          <div id="subtask-content">
+            {subtask.name}
+          </div>
           <button
             type="button"
             id="remove-subtask-btn"

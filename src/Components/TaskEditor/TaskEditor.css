@@ -89,7 +89,11 @@ h3 {
   font-size: 1.4rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
+}
+
+#subtask-content {
+  width: 80%;
 }
 
 #remove-subtask-btn {
