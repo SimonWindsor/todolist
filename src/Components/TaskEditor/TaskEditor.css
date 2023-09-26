@@ -89,7 +89,7 @@ h3 {
   font-size: 1.4rem;
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
 }
 
 #subtask-content {
