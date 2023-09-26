@@ -1,0 +1,10 @@
+#deletion-confirmer {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 50%;
+  background-color: #F4ECD6;
+  border: 1px solid #310a31;
+}

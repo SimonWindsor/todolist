@@ -4,6 +4,7 @@ import TaskList from '../TaskList/TaskList';
 import RememberToggle from '../RememberToggle/RememberToggle';
 import TaskMaker from '../TaskMaker/TaskMaker';
 import TaskEditor from '../TaskEditor/TaskEditor';
+import DeletionConfirmer from '../DeletionConfirmer/DeletionConfimer';
 
 import './App.css';
 
@@ -26,6 +27,8 @@ class App extends React.Component {
     this.editTask = this.editTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.closeEditing = this.closeEditing.bind(this);
+    this.openConfirmDelete = this.openConfirmDelete.bind(this);
+    this.closeConfirmDelete = this.closeConfirmDelete.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateAndSaveTasks = this.updateAndSaveTasks.bind(this);
     this.toggleRemember = this.toggleRemember.bind(this);
@@ -40,7 +43,8 @@ class App extends React.Component {
         remember: false,
         quickTask: '',
         edting: false,
-        taskToEdit: null
+        taskToEdit: null,
+        taskToDelete: null
       }
     } else {
       return {
@@ -48,7 +52,8 @@ class App extends React.Component {
         remember: true,
         quickTask: '',
         edting: false,
-        taskToEdit: null
+        taskToEdit: null,
+        taskToDelete: null
       }
     }
   }
@@ -177,12 +182,23 @@ class App extends React.Component {
     this.setState({edting: false, taskIdToEdit: null});
   }
 
-  deleteTask(deletedTaskId) {
+  openConfirmDelete(deletedTaskId) {
+    this.setState({taskToDelete: deletedTaskId});
+    document.getElementById('deletion-confirmer').hidden = false;
+  }
+
+  closeConfirmDelete() {
+    this.setState({taskToDelete: null});
+    document.getElementById('deletion-confirmer').hidden = true;
+  }
+
+  deleteTask() {
     const allTasks = this.state.taskList.filter(task => {
-      return task.id !== deletedTaskId
+      return task.id !== this.state.taskToDelete;
     });
 
-    this.updateAndSaveTasks(allTasks)
+    this.updateAndSaveTasks(allTasks);
+    this.closeConfirmDelete();
   }
 
   updateAndSaveTasks(allTasks) {
@@ -241,11 +257,15 @@ class App extends React.Component {
             allSubsMarked={this.allSubsMarked}
             unmarkAllSubs={this.unmarkAllSubs}
             onEdit={this.editTask}
-            onDelete={this.deleteTask}
+            onDelete={this.openConfirmDelete}
           />
         </div>
         <TaskMaker onClose={this.viewOrCloseTaskMaker} onAdd={this.addTask} />
         {taskEditor}
+        <DeletionConfirmer
+          onDelete={this.deleteTask}
+          onCancel={this.closeConfirmDelete}
+        />
       </div>
     )
   }
