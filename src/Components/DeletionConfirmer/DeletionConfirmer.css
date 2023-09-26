@@ -18,6 +18,12 @@
 
 @media screen and (orientation: portrait) {
   #deletion-confirmer {
-    width: 50%;
+    width: 60%;
+  }
+
+  .yes-no {
+    font-size: 1.5rem;
+    width: 4rem;
+    margin: 0 0.5rem;
   }
 }
