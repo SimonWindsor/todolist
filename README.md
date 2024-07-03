@@ -31,6 +31,7 @@ I actually use this myself from time-to-time and the ability to create subtasks 
 - Simple slider for enabling task memory feature.
 - Options for adding simple tasks quickly or adding more detailed tasks.
 - Popups to enable error prevention and accidental deletion of tasks.
+- Aria labelling used for acessibility.
 
 ## What was Learnt During Production
 

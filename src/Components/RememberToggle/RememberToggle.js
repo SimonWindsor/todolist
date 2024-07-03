@@ -15,7 +15,7 @@ class RememberToggle extends React.Component {
   render() {
     return (
       <div>
-        <input type="checkbox" id="switch" checked={this.props.isChecked} onChange={this.handleChange} />
+        <input type="checkbox" id="switch" checked={this.props.isChecked} onChange={this.handleChange} aria-label="Remember tasks toggle" />
         <label htmlFor="switch"><div id="slider"></div></label>
       </div>
     )

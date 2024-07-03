@@ -228,17 +228,26 @@ class App extends React.Component {
         <h1>TO DO:</h1>
         <div id='task-list-container'>
           <div id="top-controls">
-            <button id="task-maker-btn" className="blue-btn" onClick={this.viewOrCloseTaskMaker}>Add detailed task</button>
+            <button
+              id="task-maker-btn"
+              className="blue-btn"
+              onClick={this.viewOrCloseTaskMaker} 
+              aria-label="Add detailed task"
+            >
+              Add detailed task
+            </button>
             <form id="quick-add-form" onSubmit={this.addQuickTask}>
               <input
                 type="text"
                 placeholder="...or add a quick task here"
                 onChange={this.handleQuickTaskChange}
                 value={this.state.quickTask}
+                aria-label="Type in quick task"
               />
               <button
                 type="submit"
                 className='plus-btn'
+                aria-label="Submit quick task"
               >
                 {/* Use plus icon as background image */}
               </button> 

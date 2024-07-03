@@ -79,6 +79,7 @@ class TaskMaker extends React.Component {
             className="delete-btn"
             value={index}
             onClick={this.removeSubtask}
+            aria-label="Delete this subtask"
           >
             {/* Add bin icon as background image */}
           </button>
@@ -105,6 +106,7 @@ class TaskMaker extends React.Component {
             placeholder="Enter task name"
             onChange={this.handleChange}
             value={this.state.name}
+            aria-label="Name this task"
           />
           <div id="subtask-controls">
             <input 
@@ -113,11 +115,13 @@ class TaskMaker extends React.Component {
               placeholder="Add subtasks here..."
               onChange={this.handleChange}
               value={this.state.newSubtask}
+              aria-label="Enter task name"
             />
             <button
               type="button"
               className="plus-btn"
               onClick={this.addSubtask}
+              aria-label="Add subtask"
             >
               {/* Add plus icon as background image */}  
             </button>

@@ -91,11 +91,13 @@ class Task extends React.Component {
             onClick={this.expandOrCollapseTask}
             className={this.getButtonClassName()}
             disabled={this.props.subtasks.length === 0}
+            aria-label="Expand or collapse task"
+            alt="Expand of collapse icon"
           >
             {/* Add chevron icon as background image */}
           </button>
-          <button className="edit-btn" onClick={this.editTask}>{/* Add edit icon as background image */}</button>
-          <button className="delete-btn" onClick={this.deleteTask}>{/* Add bin icon as background image */}</button>
+          <button className="edit-btn" onClick={this.editTask} aria-label="Edit task" alt="Edit task" >{/* Add edit icon as background image */}</button>
+          <button className="delete-btn" onClick={this.deleteTask} aria-label="Delete task" alt="Delete task">{/* Add bin icon as background image */}</button>
         </div>
         {/* subtasks appear if expand button is clicked */}
         {subTaskList}
