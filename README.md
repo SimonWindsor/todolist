@@ -33,14 +33,19 @@ I actually use this myself from time-to-time and the ability to create subtasks 
 - Popups to enable error prevention and accidental deletion of tasks.
 
 ## What was Learnt During Production
+
 When I began learning React, I was learning to create components with classes, as opposed to using functions and hooks which I learnt later. This app uses classes but I wish I had created it a bit later after having explored functions and hooks. Adapability was a fucus as I wanted this to be a mobile-first design. I expereinced less difficulty with this than I did with a previous project.
 
 ## Potential Future Developments
+
 I think an extra feature that could be added is perhaps a feature for adding notes, which could be opened and viewed via a popup. This could also be a sub-feature of an organisation app.
 
 Another potential future development would be recreating this with React Native for a mobile app.
 
 ## Screenshots
+
+![To Do List App](./screenshots/todolist.png)
+![Editing a Task](./screenshots/editingtask.png)
 
 ## Using this Web App
 This app is currently deployed on Netlify via: https://snw-todolist.netlify.app/
