@@ -35,7 +35,7 @@ I actually use this myself from time-to-time and the ability to create subtasks 
 
 ## What was Learnt During Production
 
-When I began learning React, I was learning to create components with classes, as opposed to using functions and hooks which I learnt later. This app uses classes but I wish I had created it a bit later after having explored functions and hooks. Adapability was a fucus as I wanted this to be a mobile-first design. I expereinced less difficulty with this than I did with a previous project.
+When I began learning React, I was learning to create components with classes, as opposed to using functions and hooks which I learnt later. This app uses classes but I wish I had created it a bit later after having explored functions and hooks. Adapability was a focus as I wanted this to be a mobile-first design. I expereinced less difficulty with this than I did with a previous project.
 
 ## Potential Future Developments
 
