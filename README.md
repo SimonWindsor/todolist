@@ -1,5 +1,7 @@
 # To Do List
 
+*[Click to see a live demo of project](https://snw-todolist.netlify.app/)*
+
 ## About the Project
 
 This was my second independent project after having started undertaking a course in Full Stack Development. I was beginning to learn React and decided to create something of my own using this framework. I thought a to-do list would be a reasonable place for me to start however, I wanted to make one that would allow an extra element of flexibility in terms of personal task management. Here are the points I considered when undertaking this project:
@@ -43,13 +45,15 @@ I think an extra feature that could be added is perhaps a feature for adding not
 
 Another potential future development would be recreating this with React Native for a mobile app.
 
+## Running Locally
+- Clone the repo
+- Navigate to containing folder in CLI
+- Type `npm start`
+
 ## Screenshots
 
 ![To Do List App](./screenshots/todolist.png)
 ![Editing a Task](./screenshots/editingtask.png)
-
-## Using this Web App
-This app is currently deployed on Netlify via: https://snw-todolist.netlify.app/
 
 ## Acknowledgements
   * [Netlify](https://www.netlify.com/)
